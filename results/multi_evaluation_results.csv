@@ -1,0 +1,111 @@
+question,ground_truth,dify_answer,dify_ragas_relevancy,dify_ragas_correctness,dify_ragas_faithfulness,dify_ragas_context_precision,dify_ragas_context_recall,dify_academic_relevancy,dify_academic_correctness,dify_academic_completeness,dify_academic_clarity
+你是什么模型？,我是一个AI助手，可以回答问题、提供信息和帮助用户完成各种任务。,我是通义千问，阿里巴巴集团旗下的通义实验室自主研发的超大规模语言模型。你可以用中文、英文等语言与我交流，我会尽力帮助你解答问题、创作内容、编程等。需要什么帮助吗？,0.7427121689930649,0.4401886297288825,0.0,0.0,1.0,0.7543985125342886,0.9,0.8,0.9
+語彙データを保存するためにどのようなデータベース設計アプローチを使用すべきですか？,過去の経験に基づき、PostgreSQLデータベースを使用し、日本語単語、複数の翻訳、例文、難易度レベルのフィールドを含む専用の語彙テーブルを作成します。効率的な語彙検索のために全文検索を実装します。,"語彙データベースを設計する際は、以下の構造が適切です：
+
+1. **基本テーブル構造**
+   - **words**（単語）
+     - `id`（主キー）
+     - `word`（表記：例「勉強」）
+     - `created_at`（登録日時）
+     - `updated_at`（更新日時）
+
+2. **関連テーブル**
+   - **readings**（読み方）
+     - `id`
+     - `word_id`（外部キー）
+     - `reading`（例「べんきょう」）
+     - `type`（種別：例「hiragana」「kanji」）
+
+   - **meanings**（意味）
+     - `id`
+     - `word_id`（外部キー）
+     - `meaning`（日本語訳）
+     - `example_sentence`（例文）
+     - `part_of_speech`（品詞：例「名詞」）
+
+3. **拡張機能**
+   - **tags**（タグ）
+     - `id`
+     - `tag_name`（例「JLPT N3」「日常会話」）
+   - **word_tags**（単語とタグの中間テーブル）
+     - `word_id`
+     - `tag_id`
+
+4. **最適化ポイント**
+   - **インデックス**：`words.word`と`readings.reading`にフルテキストインデックスを設定
+   - **正規化**：冗長性を排除し、意味・読み方を別テーブルで管理
+   - **拡張性**：将来的に音声ファイルや画像参照を追加できるカラムを予備で用意
+
+5. **日本語特化の考慮**
+   - **ルビ対応**：`readings`テーブルで漢字とルビのペアを管理
+   - **多読対応**：`readings.type`で「送り仮名あり/なし」を区別
+   - **方言対応**：`meanings`に`region`カラムを追加（例「関西弁」）
+
+**実装例（SQL）**：
+```sql
+CREATE TABLE words (
+  id INTEGER PRIMARY KEY,",0.3953956414083682,0.4501703979052776,1.0,0.0,1.0,0.5369075688537369,0.9,0.9,0.9
+iPhone 13 Pro Maxのスペックを教えてください iPhone 13 Pro Maxのスペックを教えてください ,"iPhone 13 Pro Maxの主な仕様は以下の通りです：
+
+- **ディスプレイ**: 6.7インチ Super Retina XDR（解像度2778×1284ピクセル）  
+- **プロセッサ**: A15 Bionicチップ  
+- **RAM**: 6GB  
+- **ストレージ**: 128GB / 256GB / 512GB / 1TB（日本モデルは一部容量が異なる場合あり）  
+- **カメラ**:  
+  - トリプル12MPシステム（超広角・広角・望遠）  
+  - ライダー（LiDAR）スキャナー搭載  
+- **バッテリー**: 約21時間の動画再生（再生時間は使用状況により変化）  
+- **通信**: 5G対応、Wi-Fi 6  
+- **OS**: 発売時はiOS 15を搭載  
+
+アプリ開発において特に重要なのは画面解像度やカメラ機能、5G対応の有無です。日本向けアプリの場合、キャリアや地域固有の仕様（例: 防水性能）も考慮が必要な場合があります。何か特定の機能や開発上の懸念があれば、詳しく教えてください！","iPhone 13 Pro Maxの主なスペックは以下の通りです：
+
+- **発売日**: 2021年9月
+- **ディスプレイ**: 6.7インチ Super Retina XDR OLED（解像度2778×1284、120Hzリフレッシュレート、ProMotion）
+- **プロセッサ**: A15 Bionicチップ（Neural Engine搭載）
+- **カメラ**:
+  - 背面: トリプルカメラ（12MP 望遠＋12MP 広角＋12MP 超広角）
+  - 前面: 12MP TrueDepthカメラ
+  - 特徴: LiDARスキャナー、Night mode、Cinematic mode
+- **バッテリー**: 約28時間の動画再生（使用状況による）
+- **防水**: IP68（最大6メートル、30分間）
+- **接続**: 5G対応、Wi-Fi 6、Bluetooth 5.0、Lightningポート
+- **ストレージ**: 128GB / 256GB / 512GB / 1TB
+- **OS**: 出荷時iOS 15（現在iOS 17までアップデート可能）
+- **重量**: 約238g
+- **素材**: セラミックシールド前面＋ステンレススチールボディ
+
+その他の特徴として、Always-Onディスプレイ、Micro-LEDディスプレイ技術、およびAR機能強化が含まれます。具体的な仕様の詳細が必要な場合は、お気軽にご質問ください！",0.70343002037304,,1.0,0.0,1.0,0.9503809902270896,0.9,0.9,0.9
+レッスンコンテンツを提供するためのAPIパフォーマンスをどのように最適化できますか？,頻繁にアクセスされるレッスンコンテンツにキャッシュメカニズムを実装します。静的リソースにはCDNを使用します。大規模データセットにはページネーションを実装します。頻繁にクエリされるフィールドにデータベースインデックスを適用します。gzipを使用してAPIレスポンスを圧縮します。,"To optimize API performance for delivering lesson content in your Japanese app, consider the following strategies:
+
+### 1. **Caching Mechanisms**
+   - **HTTP Caching Headers**: Use `Cache-Control`, `ETag`, or `Last-Modified` headers to cache static content (e.g., lesson text, images) on the client or CDN.
+   - **CDN Integration**: Leverage Content Delivery Networks (e.g., Cloudflare, Akamai) to serve media-heavy content (videos, images) from edge locations closer to users in Japan.
+
+### 2. **Database Optimization**
+   - **Indexing**: Add indexes to frequently queried fields (e.g., `lesson_id`, `user_progress`).
+   - **Query Optimization**: Use batch queries, avoid `SELECT *`, and implement pagination (`LIMIT`/`OFFSET` or cursor-based pagination).
+   - **Database Sharding**: Split data geographically or by user base to reduce query latency for Japanese users.
+
+### 3. **Efficient Data Transfer**
+   - **Compression**: Compress responses with GZIP/Brotli to reduce payload size.
+   - **Binary Formats**: Use compact data formats like Protocol Buffers or MessagePack for lesson data instead of JSON/XML.
+   - **Delta Updates**: Transmit only changes (e.g., incremental updates to lesson content) instead of full payloads.
+
+### 4. **Asynchronous Processing**
+   - **Background Jobs**: Offload non-critical tasks (e.g., analytics, notifications) to message queues (e.g., RabbitMQ, Redis Queue).
+   - **Streaming**: Use server-sent events (SSE) or WebSockets for real-time lesson updates (e.g., live quizzes).
+
+### 5. **Rate Limiting & Throttling**
+   - Implement token bucket/sliding window algorithms to prevent abuse and ensure fair API usage.
+   - Prioritize critical endpoints (e.g., lesson delivery) over less time-sensitive ones.
+
+### 6. **Monitoring & Analytics**
+   - Track metrics like latency, error rates, and throughput using tools like Prometheus, Grafana, or New Relic.
+   - Use APM (Application Performance Monitoring) tools to identify bottlenecks in lesson content delivery.
+
+### 7. **Load Balancing & Auto-Scaling**
+   - Distribute traffic across multiple servers using Nginx, HAProxy, or cloud-native solutions (e.g., AWS ALB).
+   - Enable auto-scaling to handle traffic spikes during peak learning hours in Japan.
+
+###",0.42946269381046404,0.5104351190427509,,0.0,0.0,0.4054553974151049,0.9,0.9,0.9

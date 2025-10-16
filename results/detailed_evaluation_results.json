@@ -1,0 +1,148 @@
+{
+  "test_cases": [
+    {
+      "question": "你是什么模型？",
+      "ground_truth": "我是一个AI助手，可以回答问题、提供信息和帮助用户完成各种任务。",
+      "dify_answer": "我是通义千问，阿里巴巴集团旗下的通义实验室自主研发的超大规模语言模型。你可以用中文、英文等语言与我交流，我会尽力帮助你解答问题、创作内容、编程等。需要什么帮助吗？"
+    },
+    {
+      "question": "語彙データを保存するためにどのようなデータベース設計アプローチを使用すべきですか？",
+      "ground_truth": "過去の経験に基づき、PostgreSQLデータベースを使用し、日本語単語、複数の翻訳、例文、難易度レベルのフィールドを含む専用の語彙テーブルを作成します。効率的な語彙検索のために全文検索を実装します。",
+      "dify_answer": "語彙データベースを設計する際は、以下の構造が適切です：\n\n1. **基本テーブル構造**\n   - **words**（単語）\n     - `id`（主キー）\n     - `word`（表記：例「勉強」）\n     - `created_at`（登録日時）\n     - `updated_at`（更新日時）\n\n2. **関連テーブル**\n   - **readings**（読み方）\n     - `id`\n     - `word_id`（外部キー）\n     - `reading`（例「べんきょう」）\n     - `type`（種別：例「hiragana」「kanji」）\n\n   - **meanings**（意味）\n     - `id`\n     - `word_id`（外部キー）\n     - `meaning`（日本語訳）\n     - `example_sentence`（例文）\n     - `part_of_speech`（品詞：例「名詞」）\n\n3. **拡張機能**\n   - **tags**（タグ）\n     - `id`\n     - `tag_name`（例「JLPT N3」「日常会話」）\n   - **word_tags**（単語とタグの中間テーブル）\n     - `word_id`\n     - `tag_id`\n\n4. **最適化ポイント**\n   - **インデックス**：`words.word`と`readings.reading`にフルテキストインデックスを設定\n   - **正規化**：冗長性を排除し、意味・読み方を別テーブルで管理\n   - **拡張性**：将来的に音声ファイルや画像参照を追加できるカラムを予備で用意\n\n5. **日本語特化の考慮**\n   - **ルビ対応**：`readings`テーブルで漢字とルビのペアを管理\n   - **多読対応**：`readings.type`で「送り仮名あり/なし」を区別\n   - **方言対応**：`meanings`に`region`カラムを追加（例「関西弁」）\n\n**実装例（SQL）**：\n```sql\nCREATE TABLE words (\n  id INTEGER PRIMARY KEY,"
+    },
+    {
+      "question": "iPhone 13 Pro Maxのスペックを教えてください iPhone 13 Pro Maxのスペックを教えてください ",
+      "ground_truth": "iPhone 13 Pro Maxの主な仕様は以下の通りです：\n\n- **ディスプレイ**: 6.7インチ Super Retina XDR（解像度2778×1284ピクセル）  \n- **プロセッサ**: A15 Bionicチップ  \n- **RAM**: 6GB  \n- **ストレージ**: 128GB / 256GB / 512GB / 1TB（日本モデルは一部容量が異なる場合あり）  \n- **カメラ**:  \n  - トリプル12MPシステム（超広角・広角・望遠）  \n  - ライダー（LiDAR）スキャナー搭載  \n- **バッテリー**: 約21時間の動画再生（再生時間は使用状況により変化）  \n- **通信**: 5G対応、Wi-Fi 6  \n- **OS**: 発売時はiOS 15を搭載  \n\nアプリ開発において特に重要なのは画面解像度やカメラ機能、5G対応の有無です。日本向けアプリの場合、キャリアや地域固有の仕様（例: 防水性能）も考慮が必要な場合があります。何か特定の機能や開発上の懸念があれば、詳しく教えてください！",
+      "dify_answer": "iPhone 13 Pro Maxの主なスペックは以下の通りです：\n\n- **発売日**: 2021年9月\n- **ディスプレイ**: 6.7インチ Super Retina XDR OLED（解像度2778×1284、120Hzリフレッシュレート、ProMotion）\n- **プロセッサ**: A15 Bionicチップ（Neural Engine搭載）\n- **カメラ**:\n  - 背面: トリプルカメラ（12MP 望遠＋12MP 広角＋12MP 超広角）\n  - 前面: 12MP TrueDepthカメラ\n  - 特徴: LiDARスキャナー、Night mode、Cinematic mode\n- **バッテリー**: 約28時間の動画再生（使用状況による）\n- **防水**: IP68（最大6メートル、30分間）\n- **接続**: 5G対応、Wi-Fi 6、Bluetooth 5.0、Lightningポート\n- **ストレージ**: 128GB / 256GB / 512GB / 1TB\n- **OS**: 出荷時iOS 15（現在iOS 17までアップデート可能）\n- **重量**: 約238g\n- **素材**: セラミックシールド前面＋ステンレススチールボディ\n\nその他の特徴として、Always-Onディスプレイ、Micro-LEDディスプレイ技術、およびAR機能強化が含まれます。具体的な仕様の詳細が必要な場合は、お気軽にご質問ください！"
+    },
+    {
+      "question": "レッスンコンテンツを提供するためのAPIパフォーマンスをどのように最適化できますか？",
+      "ground_truth": "頻繁にアクセスされるレッスンコンテンツにキャッシュメカニズムを実装します。静的リソースにはCDNを使用します。大規模データセットにはページネーションを実装します。頻繁にクエリされるフィールドにデータベースインデックスを適用します。gzipを使用してAPIレスポンスを圧縮します。",
+      "dify_answer": "To optimize API performance for delivering lesson content in your Japanese app, consider the following strategies:\n\n### 1. **Caching Mechanisms**\n   - **HTTP Caching Headers**: Use `Cache-Control`, `ETag`, or `Last-Modified` headers to cache static content (e.g., lesson text, images) on the client or CDN.\n   - **CDN Integration**: Leverage Content Delivery Networks (e.g., Cloudflare, Akamai) to serve media-heavy content (videos, images) from edge locations closer to users in Japan.\n\n### 2. **Database Optimization**\n   - **Indexing**: Add indexes to frequently queried fields (e.g., `lesson_id`, `user_progress`).\n   - **Query Optimization**: Use batch queries, avoid `SELECT *`, and implement pagination (`LIMIT`/`OFFSET` or cursor-based pagination).\n   - **Database Sharding**: Split data geographically or by user base to reduce query latency for Japanese users.\n\n### 3. **Efficient Data Transfer**\n   - **Compression**: Compress responses with GZIP/Brotli to reduce payload size.\n   - **Binary Formats**: Use compact data formats like Protocol Buffers or MessagePack for lesson data instead of JSON/XML.\n   - **Delta Updates**: Transmit only changes (e.g., incremental updates to lesson content) instead of full payloads.\n\n### 4. **Asynchronous Processing**\n   - **Background Jobs**: Offload non-critical tasks (e.g., analytics, notifications) to message queues (e.g., RabbitMQ, Redis Queue).\n   - **Streaming**: Use server-sent events (SSE) or WebSockets for real-time lesson updates (e.g., live quizzes).\n\n### 5. **Rate Limiting & Throttling**\n   - Implement token bucket/sliding window algorithms to prevent abuse and ensure fair API usage.\n   - Prioritize critical endpoints (e.g., lesson delivery) over less time-sensitive ones.\n\n### 6. **Monitoring & Analytics**\n   - Track metrics like latency, error rates, and throughput using tools like Prometheus, Grafana, or New Relic.\n   - Use APM (Application Performance Monitoring) tools to identify bottlenecks in lesson content delivery.\n\n### 7. **Load Balancing & Auto-Scaling**\n   - Distribute traffic across multiple servers using Nginx, HAProxy, or cloud-native solutions (e.g., AWS ALB).\n   - Enable auto-scaling to handle traffic spikes during peak learning hours in Japan.\n\n###"
+    }
+  ],
+  "evaluation_results": {
+    "dify": {
+      "ragas": {
+        "relevancy": [
+          0.7427121689930649,
+          0.3953956414083682,
+          0.70343002037304,
+          0.42946269381046404
+        ],
+        "correctness": [
+          0.4401886297288825,
+          0.4501703979052776,
+          null,
+          0.5104351190427509
+        ],
+        "faithfulness": [
+          0.0,
+          1.0,
+          1.0,
+          null
+        ],
+        "context_precision": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "context_recall": [
+          1.0,
+          1.0,
+          1.0,
+          0.0
+        ]
+      },
+      "academic": {
+        "relevancy": [
+          0.7543985125342886,
+          0.5369075688537369,
+          0.9503809902270896,
+          0.4054553974151049
+        ],
+        "correctness": [
+          0.9,
+          0.9,
+          0.9,
+          0.9
+        ],
+        "completeness": [
+          0.8,
+          0.9,
+          0.9,
+          0.9
+        ],
+        "clarity": [
+          0.9,
+          0.9,
+          0.9,
+          0.9
+        ]
+      }
+    }
+  },
+  "summary": {
+    "dify": {
+      "ragas": {
+        "relevancy": {
+          "mean": 0.5677501311462343,
+          "min": 0.3953956414083682,
+          "max": 0.7427121689930649,
+          "count": 4
+        },
+        "correctness": {
+          "mean": 0.46693138222563696,
+          "min": 0.4401886297288825,
+          "max": 0.5104351190427509,
+          "count": 3
+        },
+        "faithfulness": {
+          "mean": 0.6666666666666666,
+          "min": 0.0,
+          "max": 1.0,
+          "count": 3
+        },
+        "context_precision": {
+          "mean": 0.0,
+          "min": 0.0,
+          "max": 0.0,
+          "count": 4
+        },
+        "context_recall": {
+          "mean": 0.75,
+          "min": 0.0,
+          "max": 1.0,
+          "count": 4
+        }
+      },
+      "academic": {
+        "relevancy": {
+          "mean": 0.661785617257555,
+          "min": 0.4054553974151049,
+          "max": 0.9503809902270896,
+          "count": 4
+        },
+        "correctness": {
+          "mean": 0.9,
+          "min": 0.9,
+          "max": 0.9,
+          "count": 4
+        },
+        "completeness": {
+          "mean": 0.875,
+          "min": 0.8,
+          "max": 0.9,
+          "count": 4
+        },
+        "clarity": {
+          "mean": 0.9,
+          "min": 0.9,
+          "max": 0.9,
+          "count": 4
+        }
+      }
+    }
+  }
+}
