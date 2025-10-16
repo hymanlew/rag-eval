@@ -1,0 +1,33 @@
+# Locked requirements for RAG Evaluation Framework (Python 3.13+)
+ragas==0.3.2
+datasets==2.19.1
+
+# LangChain ecosystem (compatible versions)
+langchain==0.3.0
+langchain-openai==0.3.19
+langchain-community==0.3.0
+langchain-core==0.3.63
+langchain-text-splitters==0.3.8
+langsmith==0.1.147
+
+# OpenAI compatibility
+openai==1.35.13
+
+# Async HTTP client
+aiohttp==3.9.5
+aiofiles==23.2.1
+async-timeout==4.0.3
+
+# Utilities
+python-dotenv==1.0.1
+pandas==2.2.2
+numpy==1.26.4
+openpyxl==3.1.5  # For Excel file processing
+python-docx==1.1.2  # For Word document processing
+PyPDF2==3.0.1  # For PDF processing
+pdfplumber==0.11.4  # Alternative PDF processing library
+pillow==10.4.0  # For image processing
+pytesseract==0.3.10  # For OCR
+streamlit==1.36.0  # For manual evaluation interface
+# matplotlib==3.8.4  # For result visualization
+seaborn==0.13.2  # For statistical data visualization
